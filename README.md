@@ -3,6 +3,13 @@
 - Virtuaalikoneelle Windows on tarkoituksena luoda "valmis" peliympäristö ammatilaiselle cs:go pelaajalle (ehkä) 
 - Debian koneilla eri tarkoitus.
 
+# Host kone ympäristö
+- GPU: Rtx 3070 TI
+- CPU: i7-9700k 
+- RAM: 32GB
+- OS: Windows 10 Pro 
+
+# Virtuaalikoneilla on Käytössä Oracle VM VirtualBox
 
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code

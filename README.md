@@ -1,5 +1,5 @@
 # Palvelinohjelmoinnin-miniprojekti
-- Miniprojektissa tullaan käyttämään kahta kolmea Linux pohjaista konetta, ja yksi näistä toimii Masterina ja loput orjina
+- Miniprojektissa tullaan käyttämään kolmea Ubuntu 20.04 konetta, ja yksi näistä toimii Masterina ja loput orjina
 - Virtuaalikoneilla on tarkoituksena luoda "valmis" peliympäristö ammatilaiselle cs:go pelaajalle, eli Steamin asennus Chocolateyllä ja Counter Strike: Global Offensiven asennus steamin kautta.
 - Host kone tulee olemaan nimeltään Masterpc ja orjakoneiden nimet tulee olemaan player1 ja player2. 
 

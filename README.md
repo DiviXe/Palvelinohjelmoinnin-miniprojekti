@@ -17,6 +17,7 @@
 
 ## Part 1: Back to the start
 - Ensin luodaan vagrantfile, joka tekee meille kyseiset ubuntu 20.04 koneet.
+- To be continued...
 
 
 ## References

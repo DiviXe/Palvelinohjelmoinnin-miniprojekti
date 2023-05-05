@@ -2,7 +2,8 @@
 - Miniprojektissa tullaan käyttämään kolmea Ubuntu 20.04 konetta, ja yksi näistä toimii Masterina ja loput orjina.
 
 # Mikä dilemma?!
-- Ohjelmoijilla on pulaa saada ohjelmointi ympäristö sadalle koneelle (tässä vaiheessa ympäristö toteutetaan kahdelle koneelle programmer1 ja programmer2) Hosti kone tulee olemaan nimeltään programmerhost.
+- Ohjelmoijilla on pulaa saada ohjelmointi ympäristö sadalle koneelle (tässä vaiheessa ympäristö toteutetaan vain kahdelle koneelle programmer1 ja programmer2) 
+- Masterkone tulee olemaan nimeltään programmerhost.
 - Koneissa TÄYTYY olla Notepad++, Visualcode Studio ja yms. Toteutettu chocolateyllä. 
 
 

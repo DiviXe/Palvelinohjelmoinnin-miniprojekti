@@ -1,7 +1,7 @@
 # Palvelinohjelmoinnin-miniprojekti
-- Miniprojektissa tullaan käyttämään Teron kahta Debian virtuaalikoneita ja windows virtuaalikonetta.
-- Virtuaalikoneelle Windows on tarkoituksena luoda "valmis" peliympäristö ammatilaiselle cs:go pelaajalle (ehkä) 
-- Debian koneilla eri tarkoitus.
+- Miniprojektissa tullaan käyttämään kahta kolmea Linux pohjaista konetta, ja yksi näistä toimii Masterina ja loput orjina
+- Virtuaalikoneilla on tarkoituksena luoda "valmis" peliympäristö ammatilaiselle cs:go pelaajalle, eli Steamin asennus Chocolateyllä ja Counter Strike: Global Offensiven asennus steamin kautta.
+- Host kone tulee olemaan nimeltään Masterpc ja orjakoneiden nimet tulee olemaan player1 ja player2. 
 
 # Host kone ympäristö
 - GPU: Rtx 3070 TI

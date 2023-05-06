@@ -13,11 +13,18 @@
 - RAM: 32GB
 - OS: Windows 10 Pro 
 
-# Virtuaalikoneilla on Käytössä Oracle VM VirtualBox
+# Virtuaalikoneet 
+- Virtuaalikoneiden luomiseen käytössä Oracle VM VirtualBox
+- käytössä yksi core per kone
+- 4GB ramia
+- 40GB HDD
+- OS: Ubuntu 20.04
 
 ## Part 1: Back to the start
 - Ensin luodaan vagrantfile, joka tekee meille kyseiset ubuntu 20.04 koneet.
-- To be continued...
+- Mennään Hosti Windows koneella powershellillä hakemistoon C:\Users\vagrant\saltdemo
+- Aloitetaan virtuaalikonedein boottaus komennolla vagrant up ja tämän jälkeen yritetään saada yhteys masteriin komennolla vagrant ssh tmaster
+- 
 
 
 ## References

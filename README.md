@@ -24,7 +24,7 @@
 - Ensin luodaan vagrantfile, joka tekee meille kyseiset ubuntu 20.04 koneet.
 - Mennään Hosti Windows koneella powershellillä hakemistoon C:\Users\vagrant\saltdemo
 - Aloitetaan virtuaalikonedein boottaus komennolla vagrant up ja tämän jälkeen yritetään saada yhteys masteriin komennolla vagrant ssh tmaster
-- 
+- Vagrantfile vielä tekeillä. 
 
 
 ## References

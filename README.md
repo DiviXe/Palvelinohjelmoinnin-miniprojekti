@@ -1,4 +1,4 @@
-# Palvelinohjelmoinnin-miniprojekti
+# Palvelinohjelmoinnin-miniprojekti (KESKEN VIELÄ, VOI MUUTTUA AJAN KANSSA) 
 - Miniprojektissa tullaan käyttämään kolmea Ubuntu 20.04 konetta, ja yksi näistä toimii Masterina ja loput orjina.
 
 # Mikä dilemma?!

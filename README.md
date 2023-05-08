@@ -29,7 +29,8 @@
 - "schannel: next InitializeSecurityContext failed: Unknown error (0x80092012) - The revocation function was unable to check revocation for the certificate."
 - Vissiin ubuntun lisääminen vagrantilla ei onnistunut, noh lisäsin sen manuaalisesti komennolla  vagrant box add generic/ubuntu2004, jonka jälkeen tuli viesti:
 
-```This box can work with multiple providers! The providers that it
+```
+This box can work with multiple providers! The providers that it
 can work with are listed below. Please review the list and choose
 the provider you will be working with.
 
@@ -37,11 +38,12 @@ the provider you will be working with.
 2) libvirt
 3) parallels
 4) virtualbox
-5) vmware_desktop```
+5) vmware_desktop
+```
 
 - Valitsin vaihtoehdon 4 ja kokeilen koneiden boottamista uudestaan.  **box: Successfully added box 'generic/ubuntu2004' (v4.2.16) for 'virtualbox'!**
 - kokeillaan vagrant up uudestaan.
-- 
+
 
 
 

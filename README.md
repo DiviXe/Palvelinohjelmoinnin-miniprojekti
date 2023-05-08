@@ -42,7 +42,7 @@ the provider you will be working with.
 ```
 
 - Valitsin vaihtoehdon 4 ja kokeilen koneiden boottamista uudestaan.  **box: Successfully added box 'generic/ubuntu2004' (v4.2.16) for 'virtualbox'!**
-- kokeillaan vagrant up uudestaan.
+- kokeillaan vagrant up uudestaan. (to be continued)
 
 
 

@@ -13,11 +13,20 @@
 - RAM: 32GB
 - OS: Windows 10 Pro 
 
-# Virtuaalikoneet 
+# Virtuaalikoneet Programmer1 ja Programmer2
 - Virtuaalikoneiden luomiseen käytössä Oracle VM VirtualBox
-- käytössä yksi core per kone
+- käytössä KAKSI corea per kone
+- 256mb video memory
 - 4GB ramia
-- 40GB HDD
+- 128GB HDD
+- OS: Ubuntu 20.04
+
+# Virtuaalikone programmerhost
+- Virtuaalikoneiden luomiseen käytössä Oracle VM VirtualBox
+- käytössä KAKSI corea
+- 256mb video memory
+- 2GB ramia
+- 128GB HDD
 - OS: Ubuntu 20.04
 
 ## Part 1: Back to the start
@@ -42,7 +51,19 @@ the provider you will be working with.
 ```
 
 - Valitsin vaihtoehdon 4 ja kokeilen koneiden boottamista uudestaan.  **box: Successfully added box 'generic/ubuntu2004' (v4.2.16) for 'virtualbox'!**
-- kokeillaan vagrant up uudestaan. (to be continued)
+- kokeillaan vagrant up uudestaan. Koneet lähti lataukseen ja nyt ne ovat päällä!
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/3a0d8ceb-4c4b-4666-a648-ffa95007b136)
+- Kone raksuttaa mukavasti, kaikki näyttää olevan onnistuneesti asennettuna.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/773d82ab-b6c4-4d51-99f7-36a36d1764ce)
+- Kokeillaan ottaa yhteys master koneeseen.
+```
+vagrant ssh programmerhost
+```
+- Yhdistäminen onnistunui, mutta (to be continued)
+```
+$ sudo salt-key -A
+```
+- Yhdistäminen 
 
 
 

@@ -64,10 +64,6 @@ the provider you will be working with.
 vagrant ssh programmerhost
 ```
 - Yhdistäminen onnistunui, mutta (to be continued)
-```
-$ sudo salt-key -A
-```
-- Yhdistäminen 
 
 
 

@@ -1,0 +1,60 @@
+```
+$minion = <<MINION
+sudo apt-get update
+mkdir /etc/apt/keyrings
+sudo apt-get install curl
+sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/20.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/20.04/amd64/latest focal main" | sudo tee /etc/apt/sources.list.d/salt.list
+sudo apt-get update
+sudo apt-get -qy install salt-minion
+echo "master: 192.168.12.3">/etc/salt/minion
+sudo systemctl enable salt-minion 
+sudo systemctl restart salt-minion
+echo "See also: https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti"
+MINION
+
+$master = <<MASTER
+sudo apt-get update
+mkdir /etc/apt/keyrings
+sudo apt-get install curl
+sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/20.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/20.04/amd64/latest focal main" | sudo tee /etc/apt/sources.list.d/salt.list
+sudo apt-get update
+sudo apt-get -qy install salt-master
+sudo systemctl enable salt-master
+sudo systemctl start salt-master
+sudo mkdir /srv/salt
+echo "See also: https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti"
+MASTER
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu2004"
+  
+  config.vm.define "programmer1" do |programmer1|
+    programmer1.vm.provision :shell, inline: $minion
+    programmer1.vm.network "private_network", ip: "192.168.12.100"
+    programmer1.vm.hostname = "programmer1"
+    programmer1.vm.provider "virtualbox" do |vb|
+      vb.memory = 4096 # 4GB RAM
+    end
+  end
+
+  config.vm.define "programmer2" do |programmer2|
+    programmer2.vm.provision :shell, inline: $minion
+    programmer2.vm.network "private_network", ip: "192.168.12.102"
+    programmer2.vm.hostname = "programmer2"
+    programmer2.vm.provider "virtualbox" do |vb|
+      vb.memory = 4096 # 4GB RAM
+    end
+  end
+
+  config.vm.define "programmerhost", primary: true do |programmerhost|
+    programmerhost.vm.provision :shell, inline: $master
+    programmerhost.vm.network "private_network", ip: "192.168.12.3"
+    programmerhost.vm.hostname = "programmerhost"
+    programmerhost.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048 # 2GB RAM
+    end
+  end
+end
+```

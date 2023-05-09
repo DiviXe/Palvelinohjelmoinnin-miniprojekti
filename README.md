@@ -29,11 +29,15 @@
 - 128GB HDD
 - OS: Ubuntu 20.04
 
-## Part 1: Back to the start
+## Part 1: Back to the start luodaan kehitysympäristö
 - Ensin luodaan vagrantfile, joka tekee meille kyseiset ubuntu 20.04 koneet.
-- Mennään Hosti Windows koneella powershellillä hakemistoon C:\Users\vagrant\saltdemo
-- Aloitetaan virtuaalikonedein boottaus komennolla vagrant up ja tämän jälkeen yritetään saada yhteys masteriin komennolla vagrant ssh tmaster
-- Vagrantfile vielä tekeillä. 
+- Mennään Hosti Windows koneella powershellillä hakemistoon 
+ ```
+C:\Users\vagrant\saltdemo
+ ```
+ - Vagrantfilessä oli paljon muunneltavaa, koska kyseessä oli ubuntu koneet, onneksi saltprojectin sivuilla on selvät ohjeet, voidaan käydä katsomassa vagrantfileä. 
+ - 
+- Aloitetaan virtuaalikonedein boottaus komennolla **vagrant up**
 - Ensimmäinen Error vagrant filen kanssa
 ```
 "schannel: next InitializeSecurityContext failed: Unknown error (0x80092012) - The revocation function was unable to check revocation for the certificate."
@@ -56,14 +60,21 @@ the provider you will be working with.
 
 - Valitsin vaihtoehdon 4 ja kokeilen koneiden boottamista uudestaan.  **box: Successfully added box 'generic/ubuntu2004' (v4.2.16) for 'virtualbox'!**
 - kokeillaan vagrant up uudestaan. Koneet lähti lataukseen ja nyt ne ovat päällä!
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/3a0d8ceb-4c4b-4666-a648-ffa95007b136)
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/20ead284-1a35-4ecf-8217-e33e8a46ccc3)
 - Kone raksuttaa mukavasti, kaikki näyttää olevan onnistuneesti asennettuna.
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/773d82ab-b6c4-4d51-99f7-36a36d1764ce)
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a09dea1a-9004-4851-84b0-4b0f3f6cef63)
+
 - Kokeillaan ottaa yhteys master koneeseen.
 ```
 vagrant ssh programmerhost
 ```
-- Yhdistäminen onnistunui, mutta (to be continued)
+- Yhdistäminen onnistunui, katsotaan samalla avaimet ja pingataan koneita, jotta tiedämme, että ne ovat oikeasti "hengissä"
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a02d1e4c-db1e-4f25-be2e-66a71c977c8c)
+- Kaikki näyttä hyvältä, eikun eteenpäin!
+
+## Part 2: downloading.. Ensin käsin, sitten automaattisesti.
+- Aloitetaan luomalla saltiin kansiosto, johon laitamme scriptejä.
+- (to be continued)
 
 
 

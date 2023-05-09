@@ -1,4 +1,3 @@
-```
 $minion = <<MINION
 sudo apt-get update
 mkdir /etc/apt/keyrings
@@ -57,4 +56,3 @@ Vagrant.configure("2") do |config|
     end
   end
 end
-```

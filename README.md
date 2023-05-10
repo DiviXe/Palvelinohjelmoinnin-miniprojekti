@@ -103,6 +103,10 @@ configure_eclipse:
     - name: /etc/eclipse.ini
     - source: salt://programmerenvironment/eclipse.ini
 ```
+- annetaan oikeudet kansiolle 
+```
+sudo chmod +x init.sls
+```
 - To be continued
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code

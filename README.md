@@ -75,10 +75,35 @@ vagrant ssh programmerhost
 ## Part 2: downloading.. Ensin käsin, sitten automaattisesti.
 - Aloitetaan luomalla saltiin kansiosto, johon laitamme scriptejä.
 - Ensin kuitenkin tehdään koodit käsin, sitten laitamme ne minioneille myöhemmin kuin asennukset mastereille toimii.
+- Käytetään tässä pkg.installia.
+- luodaan kansio programmerenvironment /srv/salt kansiostoon
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e21edaa9-43d2-47ae-a625-e54adbc944e6)
+- luodaan kansiostoon init.sls tiedosto
+```
+vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
+```
+- Kokeillaan miten eclipsen ja open-jdk17 lataus onnistuu.
 
+``` Init.sls
+install_eclipse:
+  pkg.installed:
+    - name: eclipse
 
+install_java:
+  pkg.installed:
+    - name: openjdk-17-jdk
 
+configure_java:
+  file.managed:
+    - name: /etc/environment
+    - source: salt://programmerenvironment/environment
 
+configure_eclipse:
+  file.managed:
+    - name: /etc/eclipse.ini
+    - source: salt://programmerenvironment/eclipse.ini
+```
+- To be continued
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

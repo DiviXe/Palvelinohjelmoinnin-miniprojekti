@@ -4,7 +4,7 @@
 # Mikä dilemma?!
 - Ohjelmoijilla on pulaa saada ohjelmointi ympäristö sadalle koneelle (tässä vaiheessa ympäristö toteutetaan vain kahdelle koneelle programmer1 ja programmer2) 
 - Masterkone tulee olemaan nimeltään programmerhost.
-- Koneissa TÄYTYY olla Notepad++, Visualcode Studio ja yms. Toteutettu chocolateyllä. 
+- Koneissa TÄYTYY olla Notepad++, Visualcode Studio (frond-endiin), Eclipse ja Java-JDK17
 
 
 # Host kone ympäristö

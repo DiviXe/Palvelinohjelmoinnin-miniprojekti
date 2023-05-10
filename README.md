@@ -74,7 +74,7 @@ vagrant ssh programmerhost
 
 ## Part 2: downloading.. Ensin käsin, sitten automaattisesti.
 - Aloitetaan luomalla saltiin kansiosto, johon laitamme scriptejä.
-- (to be continued)
+- Ensin kuitenkin tehdään koodit käsin, sitten laitamme ne minioneille myöhemmin kuin asennukset mastereille toimii.
 
 
 

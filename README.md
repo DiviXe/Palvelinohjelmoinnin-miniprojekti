@@ -4,7 +4,7 @@
 # Mikä dilemma?!
 - Ohjelmoijilla on pulaa saada ohjelmointi ympäristö sadalle koneelle (tässä vaiheessa ympäristö toteutetaan vain kahdelle koneelle programmer1 ja programmer2) 
 - Masterkone tulee olemaan nimeltään programmerhost.
-- Koneissa TÄYTYY olla Notepad++, Visualcode Studio (frond-endiin), Eclipse ja Java-JDK17
+- Koneissa TÄYTYY olla Notepadqq, Visualcode Studio (frond-endiin), Eclipse ja Java-JDK17
 
 
 # Host kone ympäristö
@@ -82,9 +82,41 @@ vagrant ssh programmerhost
 ```
 vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
 ```
-- Kokeillaan miten eclipsen ja open-jdk17 lataus onnistuu.
+- Asennamme master koneelle ensiksi Javan, Eclipsen, notepad ++, Postmanin ja Visualcode studion.
+- -Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 
+```
+sudo apt update
+sudo apt install openjdk-17-jdk
+java -version
+```
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/18767c50-2402-4acf-a535-c4c70dced98c)
+- Lataus onnistui.
+- Asennetaan seuraavaksi notepadqq
+``` 
+//Tämä komento lisää notepadqq-ohjelmiston tiimin omistaman henkilökohtaisen pakettivaraston (Personal Package Archive, PPA) Ubuntu-järjestelmään. PPA:sta voi asentaa ohjelmistoversioita, jotka eivät ole saatavilla virallisista Ubuntu-pakettivarastoista. Komennolla voidaan helposti päivittää tai poistaa notepadqq-ohjelmisto tarvittaessa.
+sudo add-apt-repository ppa:notepadqq-team/notepadqq
+sudo apt-get update
+sudo apt-get install notepadqq
+``` 
+- Notepadqq onnistuneesti asennettu programermasterille
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e07a2a75-1839-4230-936f-3bee6cb872ea)
+- Asennettuna, mutta tulee jotain erroreita (selvitän myöhemmin)
+- Asennetaan seuraavaksi Postman
+``` 
+sudo snap install postman
+``` 
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/91af847f-195e-4774-a8e6-6bd0ddaed827)
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/b86633d9-cfea-4182-868e-1ad052b7bf7c)
+- Postman on nyt onnistuneesti asennettu.
+- Lopuksi Eclipse. 
+``` 
+sudo snap install --classic eclipse
+``` 
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0000a892-c540-4e53-9463-9ca0e824173b)
+- Eclipsen asennus onnistui
 
-``` Init.sls
+- 
+``` init.sls
 install_eclipse:
   pkg.installed:
     - name: eclipse
@@ -93,22 +125,47 @@ install_java:
   pkg.installed:
     - name: openjdk-17-jdk
 
+install_notepadqq:
+  pkg.installed:
+    - name: notepadqq
+
+install_postman:
+  pkg.installed:
+    - name: postman
+
+install_notepadqq:
+  pkg.installed:
+    - name: notepadqq
+
+install_postman:
+  pkg.installed:
+    - name: postman
 configure_java:
   file.managed:
     - name: /etc/environment
-    - source: salt://programmerenvironment/environment
+    - source: salt://coming
 
 configure_eclipse:
   file.managed:
     - name: /etc/eclipse.ini
-    - source: salt://programmerenvironment/eclipse.ini
-```
+    - source: salt://coming
+
+configure_notepadqq:
+  file.managed:
+    - name: /path/to/notepadqq/config/file
+    - source: salt://coming
+
+configure_postman:
+  file.managed:
+    - name: /path/to/postman/config/file
+    - source: salt://coming
 - annetaan oikeudet kansiolle 
 ```
 sudo chmod +x init.sls
 ```
-- luodaan tiedosto eclipse.ini ja environment tiedosto javalle. 
-- To be continued..
+-Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 
+
+- Kaikki onnistui 
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

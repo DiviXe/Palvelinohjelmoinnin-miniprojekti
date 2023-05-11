@@ -114,9 +114,15 @@ sudo snap install --classic eclipse
 ``` 
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0000a892-c540-4e53-9463-9ca0e824173b)
 - Eclipsen asennus onnistui
+- Asennetaan vikaksi visualcode studio.
+- Ubuntulle visualcoden asennus onkin vähän vaikeampaa.
+- koodi toimii seuraavanlaisesti:
+```
+//otetaan uusin visualcodestudion paketti, joka on linux käyttäjille saatavilla
+wget https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64 -O code_1.78.1-1683194560_amd64.deb
 
-- 
-``` init.sls
+```
+```init.sls
 install_eclipse:
   pkg.installed:
     - name: eclipse
@@ -132,7 +138,16 @@ install_postman:
 install_notepadqq:
   pkg.installed:
     - name: notepadqq
-    
+
+install_postman:
+  pkg.installed:
+    - name: postman
+
+install_vscode:
+  pkg.installed:
+    - name: code
+    - refresh: True
+
 configure_java:
   file.managed:
     - name: /etc/environment
@@ -142,6 +157,7 @@ configure_eclipse:
   file.managed:
     - name: /etc/eclipse.ini
     - source: salt://programmerenvironment/eclipse.ini
+
 ```
 - openjdk17, javalle on tehty /srv/salt/environment teksti tiedosto: 
 ```
@@ -161,16 +177,31 @@ sudo cp /snap/eclipse/66/eclipse.ini /srv/salt/programmerenvironment/
 -Onnistui!
 - Kansiossa sijaitsee nyt eclipse.ini ja environmet tiedosto.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/74bfcf50-5a5e-430e-a316-d7aab5981f03)
+- Ladataan visulcode ubuntulle Visual studio Ubuntu ohjeiden mukaan.
+```
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code
+```
+- Koodi toimi!
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a5f9f948-b522-44a4-936e-a04d5694e6ad)
 - 
 
-- annetaan oikeudet kansiolle
+- annetaan meidän /srv/salt/programer environment init tiedostolle nyt oikeudet.
+```
 sudo chmod +x init.sls
 ```
--Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 
-
-- Kaikki onnistui 
+- To be continued
+- 
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet
 - https://terokarvinen.com/2018/control-windows-with-salt/, Tero Karvinen Control Windows With Salt
 - https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/ubuntu.html#install-salt-on-ubuntu-20-04-focal, Salt for Ubuntu 20.04
+https://code.visualstudio.com/docs/?dv=linux64_deb, visual code for ubuntu
+https://code.visualstudio.com/docs/setup/linux, Visualcode for ubuntu docs 

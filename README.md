@@ -125,10 +125,6 @@ install_java:
   pkg.installed:
     - name: openjdk-17-jdk
 
-install_notepadqq:
-  pkg.installed:
-    - name: notepadqq
-
 install_postman:
   pkg.installed:
     - name: postman
@@ -136,31 +132,38 @@ install_postman:
 install_notepadqq:
   pkg.installed:
     - name: notepadqq
-
-install_postman:
-  pkg.installed:
-    - name: postman
+    
 configure_java:
   file.managed:
     - name: /etc/environment
-    - source: salt://coming
+    - source: salt://programmerenvironment/environment
 
 configure_eclipse:
   file.managed:
     - name: /etc/eclipse.ini
-    - source: salt://coming
-
-configure_notepadqq:
-  file.managed:
-    - name: /path/to/notepadqq/config/file
-    - source: salt://coming
-
-configure_postman:
-  file.managed:
-    - name: /path/to/postman/config/file
-    - source: salt://coming
-- annetaan oikeudet kansiolle 
+    - source: salt://programmerenvironment/eclipse.ini
 ```
+- openjdk17, javalle on tehty /srv/salt/environment teksti tiedosto: 
+```
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
+PATH="$JAVA_HOME/bin:$PATH"
+```
+- Tätä tarvitaan, että löydämme oikean java version, jonka lataamme minioneille. 
+- Seuraavaksi etsitään meidän eclipse.ini tiedosto. 
+- Eclipsemme sijaitsee kansiossa, **/var/snap/eclipse/current/** otamme tästä kansiosta eclipse.ini tieodoston ja kopiomme sen programmerenvironment salt tiedostoon.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/5f51a966-da37-47e8-b2f5-23dd5b73cdf6)
+- Eclipsen inin etsiminen olikin vähän vaikeampaa kuin ajattelinkin, se olikin kansiossa /snap/eclipse/66/eclipse.ini
+- Kopioidaan tiedosto
+```
+sudo cp /snap/eclipse/66/eclipse.ini /srv/salt/programmerenvironment/
+
+```
+-Onnistui!
+- Kansiossa sijaitsee nyt eclipse.ini ja environmet tiedosto.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/74bfcf50-5a5e-430e-a316-d7aab5981f03)
+- 
+
+- annetaan oikeudet kansiolle
 sudo chmod +x init.sls
 ```
 -Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 

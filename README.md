@@ -197,7 +197,6 @@ sudo apt install code
 sudo chmod +x init.sls
 ```
 - To be continued
-- 
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

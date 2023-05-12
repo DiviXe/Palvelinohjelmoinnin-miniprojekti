@@ -264,6 +264,9 @@ sudo apt install code
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/eb2889a4-fbe3-4b2d-87c0-8b74ad829419)
 - Postman ja Eclipse to go...
 - To be continued
+- ASYNC koodien perään niin käyttäessä salt '*' cmd.runia esim:
+- salt '*' cmd.run 'code --version' --async
+- to be continued
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

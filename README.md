@@ -4,7 +4,11 @@
 # Mikä dilemma?!
 - Ohjelmoijilla on pulaa saada ohjelmointi ympäristö sadalle koneelle (tässä vaiheessa ympäristö toteutetaan vain kahdelle koneelle programmer1 ja programmer2) 
 - Masterkone tulee olemaan nimeltään programmerhost.
-- Koneissa TÄYTYY olla Notepadqq, Visualcode Studio (frond-endiin), Eclipse ja Java-JDK17
+- Koneissa TÄYTYY olla Notepadqq, Visualcode Studio (frond-endiin), Eclipse, Java-JDK17 ja postman.
+- Tässä on kuva master koneesta ja sen ohjelmista.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/20d14ba5-cd25-4665-aae6-e5b87a120dea)
+- Älkää välittäkö Vimistä.
+
 
 
 # Host kone ympäristö
@@ -262,11 +266,14 @@ sudo apt update
 sudo apt install code
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/eb2889a4-fbe3-4b2d-87c0-8b74ad829419)
-- Postman ja Eclipse to go...
-- To be continued
-- ASYNC koodien perään niin käyttäessä salt '*' cmd.runia esim:
-- salt '*' cmd.run 'code --version' --async
-- to be continued
+- Post man to go! Eclipsekin on asennettu onnistuneesti.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/862916c9-a4a7-42e9-aa79-23797e9efbc7)
+- Katsotaan mikä java-version on asennettuna programmer1 ja programmer2 koneille.
+```
+- sudo salt '*' cmd.run 'java --version'
+```
+- java 17 se siellä! 
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/23d67fd4-983e-472f-9840-1743b99e534c)
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

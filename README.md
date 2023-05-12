@@ -196,7 +196,24 @@ sudo apt install code
 ```
 sudo chmod +x init.sls
 ```
-- To be continued
+## Part 2 Prepare the minions!
+```
+sudo salt '*' state.apply saltenv=base
+```
+- Ongelmien ratkaisujen jälkeen koodi raksuttaa nyt minioneilla ja katsotaan mitä käy..
+- Java-17 latautui onnistuneesti, javan-configure, notepadqq ja Eclipse
+- Asiat mitkä eivät lataantuneet olivat postman, visual-code ja Eclipsen asetukset.
+- Tässä on lopputulokset:
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/2268132f-2787-4a74-bf2f-dbd61b083f6d)
+- Run time oli tässä aika pitkä.. jopa 367 sekuntia eli 6 minuuttia. 
+- Katsotaan missä ongelma oli..
+- ajetaan koodi uudestaan tersellä.
+```
+sudo salt '*' state.highstate saltenv=base test=True --state-output=terse
+```
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/7ffbddc8-4545-4881-b468-6bcfdc2e2531)
+- 3 unchanged eli eclipse, postman, visualcode eivät toimineet, eclipsen ini tiedosto kuitenkin tomimi.
+- 
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

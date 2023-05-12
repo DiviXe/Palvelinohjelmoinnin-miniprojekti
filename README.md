@@ -213,7 +213,57 @@ sudo salt '*' state.highstate saltenv=base test=True --state-output=terse
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/7ffbddc8-4545-4881-b468-6bcfdc2e2531)
 - 3 unchanged eli eclipse, postman, visualcode eivät toimineet, eclipsen ini tiedosto kuitenkin tomimi.
-- 
+- Eclipseä ei voinutkaan ladata pkg.installerilla, eikö myöskään postmania.
+- Muutetaan init.sls tiedostoa seuraavanlaisesti:
+- Uusia ongelmia programmer1, programmer2 koneilla ei ole mounttia.
+```
+PS C:\Users\vagrant\saltdemo> vagrant ssh programmer1
+Last login: Fri May 12 18:12:46 2023 from 10.0.2.2
+-bash: groups: command not found
+Command 'lesspipe' is available in the following places
+ * /bin/lesspipe
+ * /usr/bin/lesspipe
+The command could not be located because '/bin:/usr/bin' is not included in the PATH environment variable.
+lesspipe: command not found
+Command 'dircolors' is available in the following places
+ * /bin/dircolors
+ * /usr/bin/dircolors
+The command could not be located because '/bin:/usr/bin' is not included in the PATH environment variable.
+dircolors: command not found
+```
+- Jouduin manuaalisesti luomaan path variablen molemmile koneille:
+```
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Tämän jälkeen komennot: 
+sudo apt-get update
+sudo apt-get install sudo util-linux
+Get:1 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 sudo amd64 1.8.31-1ubuntu1.5 [515 kB]
+Fetched 515 kB in 1s (569 kB/s)
+(Reading database ... 150840 files and directories currently installed.)
+Preparing to unpack .../sudo_1.8.31-1ubuntu1.5_amd64.deb ...
+Unpacking sudo (1.8.31-1ubuntu1.5) over (1.8.31-1ubuntu1.4) ...
+Setting up sudo (1.8.31-1ubuntu1.5) ...
+Processing triggers for man-db (2.9.1-1) ...
+```
+- Ei vieläkään onnistunut, poistetaan vscode, eclipse ja postman latauksista ja kokeillaan uudestaan.
+- kokeillaan uudestaan sudo salt '*' state.highstate saltenv=base test=True --state-output=terse
+- Mikään ei ole muuttunut, eli koodi on silti idempotenttinen.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/9b588785-1ba4-40d0-88ab-fcda70f4fafa)
+- Java on asennettuna, notepadqq, java environment ja eclipse asetukset..
+- Visual code asennettiin cmd.runin kautta kyseiselle koodilla:
+```
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code
+```
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/eb2889a4-fbe3-4b2d-87c0-8b74ad829419)
+- Postman ja Eclipse to go...
+- To be continued
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

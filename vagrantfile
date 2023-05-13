@@ -1,3 +1,6 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# vagrant updates, nesting the Vagrant.configure ruined the setup after rebooting
 $minion = <<MINION
 sudo apt-get update
 mkdir /etc/apt/keyrings
@@ -31,21 +34,31 @@ Vagrant.configure("2") do |config|
   
   config.vm.define "programmer1" do |programmer1|
     programmer1.vm.provision :shell, inline: $minion
-    programmer1.vm.network "private_network", ip: "192.168.12.100"
     programmer1.vm.hostname = "programmer1"
     programmer1.vm.provider "virtualbox" do |vb|
       vb.memory = 4096 # 4GB RAM
     end
+	config.vm.network "private_network", ip: "192.168.33.10"
   end
 
   config.vm.define "programmer2" do |programmer2|
     programmer2.vm.provision :shell, inline: $minion
-    programmer2.vm.network "private_network", ip: "192.168.12.102"
     programmer2.vm.hostname = "programmer2"
     programmer2.vm.provider "virtualbox" do |vb|
       vb.memory = 4096 # 4GB RAM
     end
+	programmer2.vm.network "private_network", ip: "192.168.12.102"
   end
+
+  config.vm.define "programmerhost", primary: true do |programmerhost|
+    programmerhost.vm.provision :shell, inline: $master
+    programmerhost.vm.hostname = "programmerhost"
+    programmerhost.vm.provider "virtualbox" do |vb|
+      vb.memory = 2048 # 2GB RAM
+    end
+	programmerhost.vm.network "private_network", ip: "192.168.12.3"
+  end
+end
 
   config.vm.define "programmerhost", primary: true do |programmerhost|
     programmerhost.vm.provision :shell, inline: $master

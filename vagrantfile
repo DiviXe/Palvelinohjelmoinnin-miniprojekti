@@ -59,13 +59,3 @@ Vagrant.configure("2") do |config|
 	programmerhost.vm.network "private_network", ip: "192.168.12.3"
   end
 end
-
-  config.vm.define "programmerhost", primary: true do |programmerhost|
-    programmerhost.vm.provision :shell, inline: $master
-    programmerhost.vm.network "private_network", ip: "192.168.12.3"
-    programmerhost.vm.hostname = "programmerhost"
-    programmerhost.vm.provider "virtualbox" do |vb|
-      vb.memory = 2048 # 2GB RAM
-    end
-  end
-end

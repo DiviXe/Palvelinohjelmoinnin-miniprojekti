@@ -39,7 +39,7 @@
  ```
 C:\Users\vagrant\saltdemo
  ```
- - Vagrantfilessä oli paljon muunneltavaa, koska kyseessä oli ubuntu koneet, onneksi saltprojectin sivuilla on selvät ohjeet, voidaan käydä katsomassa vagrantfileä. 
+ - Kopioidaan kyseinen vagrantfile tiedoston sisälle.
  - 
 - Aloitetaan virtuaalikonedein boottaus komennolla **vagrant up**
 - Ensimmäinen Error vagrant filen kanssa
@@ -47,9 +47,6 @@ C:\Users\vagrant\saltdemo
 "schannel: next InitializeSecurityContext failed: Unknown error (0x80092012) - The revocation function was unable to check revocation for the certificate."
 ```
 - Vissiin ubuntun lisääminen vagrantilla ei onnistunut, noh lisäsin sen manuaalisesti komennolla  vagrant box add generic/ubuntu2004, jonka jälkeen tuli viesti:
-
-
-
 ```
 This box can work with multiple providers! The providers that it
 can work with are listed below. Please review the list and choose
@@ -64,6 +61,7 @@ the provider you will be working with.
 
 - Valitsin vaihtoehdon 4 ja kokeilen koneiden boottamista uudestaan.  **box: Successfully added box 'generic/ubuntu2004' (v4.2.16) for 'virtualbox'!**
 - kokeillaan vagrant up uudestaan. Koneet lähti lataukseen ja nyt ne ovat päällä!
+- Myöhemmin huomasin, että kyseessä voi sittenkin olla palomuuri ongemat eikä palvelun lisääminen.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/20ead284-1a35-4ecf-8217-e33e8a46ccc3)
 - Kone raksuttaa mukavasti, kaikki näyttää olevan onnistuneesti asennettuna.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a09dea1a-9004-4851-84b0-4b0f3f6cef63)
@@ -79,13 +77,11 @@ vagrant ssh programmerhost
 ## Part 2: downloading.. Ensin käsin, sitten automaattisesti.
 - Aloitetaan luomalla saltiin kansiosto, johon laitamme scriptejä.
 - Ensin kuitenkin tehdään koodit käsin, sitten laitamme ne minioneille myöhemmin kuin asennukset mastereille toimii.
-- Käytetään tässä pkg.installia.
+- Käytetään tässä pkg.installia ja cmd.runia. 
 - luodaan kansio programmerenvironment /srv/salt kansiostoon
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e21edaa9-43d2-47ae-a625-e54adbc944e6)
 - luodaan kansiostoon init.sls tiedosto
-```
-vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
-```
+- Jätämme init.sls tiedoston nyt tähän ja lähdemme itse asentamaan ohjelmia ensin master koneelle ja tätä mukaan varmistamme, että ohjelmat on asennettu oikein.
 - Asennamme master koneelle ensiksi Javan, Eclipsen, notepad ++, Postmanin ja Visualcode studion.
 - -Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 
 ```
@@ -119,12 +115,20 @@ sudo snap install --classic eclipse
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0000a892-c540-4e53-9463-9ca0e824173b)
 - Eclipsen asennus onnistui
 - Asennetaan vikaksi visualcode studio.
-- Ubuntulle visualcoden asennus onkin vähän vaikeampaa.
+- Ubuntulle visualcoden asennus onkin vähän vaikeampaa, koska ubuntulle ei ole saatavilla pkg.installia visual codesta niin joudumme hakemaan .deb versio paketin netistä.
 - koodi toimii seuraavanlaisesti:
 ```
 //otetaan uusin visualcodestudion paketti, joka on linux käyttäjille saatavilla
 wget https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64 -O code_1.78.1-1683194560_amd64.deb
+Lisätään Microsoft VS Code -tietovarasto järjestelmääsi:
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+Tehdään päivitys ja ladataan koodi.
+sudo apt update
+sudo apt install code
 
+```
+```
+vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
 ```
 ```init.sls
 install_eclipse:
@@ -167,6 +171,8 @@ configure_eclipse:
 ```
 JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
 PATH="$JAVA_HOME/bin:$PATH"
+
+Määrittämällä JAVA_HOME ja lisäämällä $JAVA_HOME/bin PATH-muuttujaan varmistat, että järjestelmä tietää JDK:n asennussijainnin ja voi käyttää Javan suoritettavia tiedostoja helposti.
 ```
 - Tätä tarvitaan, että löydämme oikean java version, jonka lataamme minioneille. 
 - Seuraavaksi etsitään meidän eclipse.ini tiedosto. 
@@ -256,14 +262,7 @@ Processing triggers for man-db (2.9.1-1) ...
 - Java on asennettuna, notepadqq, java environment ja eclipse asetukset..
 - Visual code asennettiin cmd.runin kautta kyseiselle koodilla:
 ```
-sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-sudo apt install apt-transport-https
-sudo apt update
-sudo apt install code
+sudo snap install --classic code
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/eb2889a4-fbe3-4b2d-87c0-8b74ad829419)
 - Post man to go! Eclipsekin on asennettu onnistuneesti.
@@ -281,3 +280,6 @@ sudo apt install code
 - https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/ubuntu.html#install-salt-on-ubuntu-20-04-focal, Salt for Ubuntu 20.04
 https://code.visualstudio.com/docs/?dv=linux64_deb, visual code for ubuntu
 https://code.visualstudio.com/docs/setup/linux, Visualcode for ubuntu docs 
+https://stackoverflow.com/questions/35641991/invalid-configured-shell-error-when-running-the-official-freebsd-vagrant-box ssh shell issue fix on vagrantfile
+https://linuxize.com/post/how-to-install-postman-on-ubuntu-20-04/ postman for ubuntu
+

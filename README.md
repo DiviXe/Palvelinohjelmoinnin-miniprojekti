@@ -275,6 +275,9 @@ sudo snap install --classic code
 ```
 - java 17 se siellä! 
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/23d67fd4-983e-472f-9840-1743b99e534c)
+
+## part 3 esimerkkien antaminen
+- Esimerkkejä, että ohjelmat ovat asennettuna ja java hello world toimii. 
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

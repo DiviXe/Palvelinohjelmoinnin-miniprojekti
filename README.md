@@ -82,7 +82,7 @@ vagrant ssh programmerhost
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e21edaa9-43d2-47ae-a625-e54adbc944e6)
 - luodaan kansiostoon init.sls tiedosto
 - Jätämme init.sls tiedoston nyt tähän ja lähdemme itse asentamaan ohjelmia ensin master koneelle ja tätä mukaan varmistamme, että ohjelmat on asennettu oikein.
-- Asennamme master koneelle ensiksi Javan, Eclipsen, notepad ++, Postmanin ja Visualcode studion.
+- Asennamme master koneelle ensiksi Javan, Eclipsen, notepadqq, Postmanin ja Visualcode studion.
 - -Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 
 ```
 sudo apt update
@@ -128,6 +128,7 @@ sudo apt update
 sudo apt install code
 
 ```
+- Tässäkin oltaisiin voittaa käyttää snap installeria, joka tuleekin minioneille. 
 ```
 vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
 ```
@@ -191,43 +192,32 @@ sudo cp /snap/eclipse/66/eclipse.ini /srv/salt/programmerenvironment/
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/74bfcf50-5a5e-430e-a316-d7aab5981f03)
 - Ladataan visulcode ubuntulle Visual studio Ubuntu ohjeiden mukaan.
 ```
-sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-sudo apt install apt-transport-https
-sudo apt update
-sudo apt install code
+ sudo snap install --code
 ```
 - Koodi toimi!
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a5f9f948-b522-44a4-936e-a04d5694e6ad)
 - 
-
 - annetaan meidän /srv/salt/programer environment init tiedostolle nyt oikeudet.
 ```
 sudo chmod +x init.sls
 ```
 ## Part 2 Prepare the minions!
 ```
-sudo salt '*' state.apply saltenv=base
+sudo salt '*' state.apply saltenv=base 
+top.sls tiedostoon tulee myöhemmin lisää tiedostoja, siksi tämä on erillään ja käytetään state.applyä. 
 ```
 - Ongelmien ratkaisujen jälkeen koodi raksuttaa nyt minioneilla ja katsotaan mitä käy..
-- Java-17 latautui onnistuneesti, javan-configure, notepadqq ja Eclipse
-- Asiat mitkä eivät lataantuneet olivat postman, visual-code ja Eclipsen asetukset.
+- Kaikki lataukset on nyt onnistuneesti latautunut. 
 - Tässä on lopputulokset:
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/2268132f-2787-4a74-bf2f-dbd61b083f6d)
-- Run time oli tässä aika pitkä.. jopa 367 sekuntia eli 6 minuuttia. 
-- Katsotaan missä ongelma oli..
-- ajetaan koodi uudestaan tersellä.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/86329894-1851-4f9b-9b73-ae5b5d2dbe46)
+- Run time oli tässä aika pitkä.. jopa 600 sekuntia eli 10 minuuttia. 
+- ajetaan koodi uudestaan tersellä, eli saadaan vastaus paljon pienemmällä tuloksella.
 ```
-sudo salt '*' state.highstate saltenv=base test=True --state-output=terse
+sudo salt '*' state.highstate saltenv=base --state-output=terse
 ```
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/7ffbddc8-4545-4881-b468-6bcfdc2e2531)
-- 3 unchanged eli eclipse, postman, visualcode eivät toimineet, eclipsen ini tiedosto kuitenkin tomimi.
-- Eclipseä ei voinutkaan ladata pkg.installerilla, eikö myöskään postmania.
-- Muutetaan init.sls tiedostoa seuraavanlaisesti:
-- Uusia ongelmia programmer1, programmer2 koneilla ei ole mounttia.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/6f29737e-2862-4a10-a3a6-b82d0d6d6d53)
+- 3 changed eclipse, postman, visualcode koska ne ovat asennettuna cmd-runin kautta, muuten koodi on idempotenttinen.
+- Eclipseä ei voinutkaan ladata pkg.installerilla, eikö myöskään postmania eikä visualcode studiota.
 ```
 PS C:\Users\vagrant\saltdemo> vagrant ssh programmer1
 Last login: Fri May 12 18:12:46 2023 from 10.0.2.2
@@ -277,7 +267,55 @@ sudo snap install --classic code
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/23d67fd4-983e-472f-9840-1743b99e534c)
 
 ## part 3 esimerkkien antaminen
-- Esimerkkejä, että ohjelmat ovat asennettuna ja java hello world toimii. 
+- Esimerkkejä, että java on asennettuna ja java hello world toimii. 
+- Eclipsen versiota ei voida näyttää eclipse --version komennolla, eikä myöskään postman tai notepadqq toimi.
+- Esimerkki testit:
+```  
+java_example:
+  cmd.run:
+    - name: java --version
+```
+- Tehdään testversion.sls tiedosto, joka ajaa versiot läpi kansiostoon /srv/salt/programmerenvironment ja annetaan tiedostolle kyseiset oikeudet:
+```
+sudo nano testversion.sls
+sudo chmod +x testversion.sls
+
+```
+- lisätään testversion top.sls tiedostoon
+```
+base:
+  '*':
+    - programmerenvironment.init
+    - programmerenvironment.testversion
+```
+- Seuraavaksi tehdään testi java koodi, joka on vastaava nimeltään HelloSalt.java
+```
+public class HelloSalt {
+    public static void main(String[] args) {
+        System.out.println("Hello, SaltStack!");
+    }
+}
+```
+- annetaan koodille myös oikeudet!
+```
+sudo chmod o+w HelloSalt.java
+//compiling code:
+ javac HelloSalt.java
+// testing code:
+java HelloSalt
+```
+- koodi toimii!
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/f698c4aa-e005-488a-ab1e-000871d75747)
+- ajetaan koodi vielä lopuksi salt minioneilla!
+- lisätään komento init.sls tiedostoon ja katsotaan mitä käy!
+```
+run_hello_salt:
+  cmd.run:
+    - name: java -cp /srv/salt/programmerenvironment HelloSalt
+    - cwd: /
+    - runas: vagrant
+```
+- ongelmia vielä koodin kanssa testaillaan myöhemmin.
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

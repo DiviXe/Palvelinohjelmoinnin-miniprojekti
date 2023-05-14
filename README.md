@@ -7,9 +7,6 @@
 - Koneissa TÄYTYY olla Notepadqq, Visualcode Studio (frond-endiin), Eclipse, Java-JDK17 ja postman.
 - Tässä on kuva master koneesta ja sen ohjelmista.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/20d14ba5-cd25-4665-aae6-e5b87a120dea)
-- Älkää välittäkö Vimistä.
-
-
 
 # Host kone ympäristö
 - GPU: Rtx 3070 TI
@@ -271,6 +268,10 @@ run_hello_salt:
     - runas: vagrant
 ```
 - ongelmia vielä koodin kanssa testaillaan myöhemmin.
+- loppukuva virtuaalimasiinasta
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/770e74a5-6590-4c69-bd56-1e853d5945a3)
+- Tässä tältä kertaa!
+
 ## References
 - https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/, Tero Karvinen  Infra as Code
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet

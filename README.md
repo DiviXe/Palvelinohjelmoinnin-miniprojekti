@@ -276,11 +276,11 @@ run_hello_salt:
 - https://terokarvinen.com/2023/salt-vagrant/, Tero Karvinen Salt Vagrant virtuaalikoneet
 - https://terokarvinen.com/2018/control-windows-with-salt/, Tero Karvinen Control Windows With Salt
 - https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/ubuntu.html#install-salt-on-ubuntu-20-04-focal, Salt for Ubuntu 20.04
-https://code.visualstudio.com/docs/?dv=linux64_deb, visual code for ubuntu
-https://code.visualstudio.com/docs/setup/linux, Visualcode for ubuntu docs 
-https://stackoverflow.com/questions/35641991/invalid-configured-shell-error-when-running-the-official-freebsd-vagrant-box ssh shell issue fix on vagrantfile
-https://linuxize.com/post/how-to-install-postman-on-ubuntu-20-04/ postman for ubuntu
-https://askubuntu.com/questions/1231410/cant-log-in-on-ubuntu-20-04, cant log in to ubuntu
-https://askubuntu.com/questions/452488/the-command-could-not-be-located-because-usr-bin-is-not-included-in-the-path, The command could not be located because '/usr/bin' is not included in the PATH environment variable [duplicate]
-https://askubuntu.com/questions/338726/cant-execute-terminal-commands-the-command-sudo-is-available-in-usr-bin-s/338728#338728, Can't execute terminal commands: "the command 'sudo' is available in '/usr/bin/sudo'"
+- https://code.visualstudio.com/docs/?dv=linux64_deb, visual code for ubuntu
+- https://code.visualstudio.com/docs/setup/linux, Visualcode for ubuntu docs 
+- https://stackoverflow.com/questions/35641991/invalid-configured-shell-error-when-running-the-official-freebsd-vagrant-box ssh shell issue fix on vagrantfile
+- https://linuxize.com/post/how-to-install-postman-on-ubuntu-20-04/ postman for ubuntu
+- https://askubuntu.com/questions/1231410/cant-log-in-on-ubuntu-20-04, cant log in to ubuntu
+- https://askubuntu.com/questions/452488/the-command-could-not-be-located-because-usr-bin-is-not-included-in-the-path, The command could not be located because '/usr/bin' is not included in the PATH environment variable [duplicate]
+- https://askubuntu.com/questions/338726/cant-execute-terminal-commands-the-command-sudo-is-available-in-usr-bin-s/338728#338728, Can't execute terminal commands: "the command 'sudo' is available in '/usr/bin/sudo'"
 

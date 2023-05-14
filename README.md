@@ -97,6 +97,7 @@ java -version
 sudo add-apt-repository ppa:notepadqq-team/notepadqq
 sudo apt-get update
 sudo apt-get install notepadqq
+tässä oltaisiin voitu käyttää myös sudo snap install notepadqq. 
 ``` 
 - Notepadqq onnistuneesti asennettu programermasterille
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e07a2a75-1839-4230-936f-3bee6cb872ea)
@@ -173,6 +174,7 @@ JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
 PATH="$JAVA_HOME/bin:$PATH"
 
 Määrittämällä JAVA_HOME ja lisäämällä $JAVA_HOME/bin PATH-muuttujaan varmistat, että järjestelmä tietää JDK:n asennussijainnin ja voi käyttää Javan suoritettavia tiedostoja helposti.
+(tässä voi olla ongelmia, katson ratkaisuja myöhemmin
 ```
 - Tätä tarvitaan, että löydämme oikean java version, jonka lataamme minioneille. 
 - Seuraavaksi etsitään meidän eclipse.ini tiedosto. 
@@ -184,8 +186,8 @@ Määrittämällä JAVA_HOME ja lisäämällä $JAVA_HOME/bin PATH-muuttujaan va
 sudo cp /snap/eclipse/66/eclipse.ini /srv/salt/programmerenvironment/
 
 ```
--Onnistui!
-- Kansiossa sijaitsee nyt eclipse.ini ja environmet tiedosto.
+-Lisäämme tämän, jos koneella olisi eclipsen sisäisiä ajatuksia niin eclipse.ini tiedosto toisi asetukset minion koneille.
+- Kansiossa sijaitsee nyt eclipse.ini ja environment tiedosto.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/74bfcf50-5a5e-430e-a316-d7aab5981f03)
 - Ladataan visulcode ubuntulle Visual studio Ubuntu ohjeiden mukaan.
 ```
@@ -282,4 +284,7 @@ https://code.visualstudio.com/docs/?dv=linux64_deb, visual code for ubuntu
 https://code.visualstudio.com/docs/setup/linux, Visualcode for ubuntu docs 
 https://stackoverflow.com/questions/35641991/invalid-configured-shell-error-when-running-the-official-freebsd-vagrant-box ssh shell issue fix on vagrantfile
 https://linuxize.com/post/how-to-install-postman-on-ubuntu-20-04/ postman for ubuntu
+https://askubuntu.com/questions/1231410/cant-log-in-on-ubuntu-20-04, cant log in to ubuntu
+https://askubuntu.com/questions/452488/the-command-could-not-be-located-because-usr-bin-is-not-included-in-the-path, The command could not be located because '/usr/bin' is not included in the PATH environment variable [duplicate]
+https://askubuntu.com/questions/338726/cant-execute-terminal-commands-the-command-sudo-is-available-in-usr-bin-s/338728#338728, Can't execute terminal commands: "the command 'sudo' is available in '/usr/bin/sudo'"
 

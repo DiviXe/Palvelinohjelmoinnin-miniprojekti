@@ -19,7 +19,7 @@
 - käytössä KAKSI corea per kone
 - 256mb video memory
 - 4GB ramia
-- 128GB HDD
+- 128GB HDD (käytössä noin 5-7gb asennusten jälkeen)
 - OS: Ubuntu 20.04
 
 # Virtuaalikone programmerhost
@@ -27,7 +27,7 @@
 - käytössä KAKSI corea
 - 256mb video memory
 - 2GB ramia
-- 128GB HDD
+- 128GB HDD (käytössä noin 5-7gb asennusten jälkeen)
 - OS: Ubuntu 20.04
 
 ## Part 1: Back to the start luodaan kehitysympäristö

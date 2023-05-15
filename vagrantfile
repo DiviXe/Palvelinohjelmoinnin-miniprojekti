@@ -1,11 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-# vagrant updates, nesting the Vagrant.configure ruined the setup after rebooting
+# vagrant updates, nesting the Vagrant.configure ruined the setup after rebooting now fixed and working.
+
 $minion = <<MINION
 sudo apt-get update
+# To pin your Salt upgrades to the Latest Onedir package of Salt for Ubuntu 20.04 (Focal): 
+# source from official salt install guide for ubuntu 20.04
 mkdir /etc/apt/keyrings
 sudo apt-get install curl
 sudo curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/20.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg
+#-fsSL -o options for curl:
+# Yhteenvetona, sudo curl -fsSL -o -komento mahdollistaa tiedoston lataamisen etäpalvelimelta curl:n avulla, virheenkäsittelyllä, hiljaisella toiminnolla, uudelleenohjausten seuraamisella sekä ladatun tiedoston tallentamisella määritettyyn sijaintiin.
 echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/20.04/amd64/latest focal main" | sudo tee /etc/apt/sources.list.d/salt.list
 sudo apt-get update
 sudo apt-get -qy install salt-minion

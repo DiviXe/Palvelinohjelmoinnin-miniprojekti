@@ -37,7 +37,6 @@
 C:\Users\vagrant\saltdemo
  ```
  - Kopioidaan kyseinen vagrantfile tiedoston sisälle.
- - 
 - Aloitetaan virtuaalikonedein boottaus komennolla **vagrant up**
 - Ensimmäinen Error vagrant filen kanssa
 ```
@@ -97,8 +96,7 @@ sudo apt-get install notepadqq
 tässä oltaisiin voitu käyttää myös sudo snap install notepadqq. 
 ``` 
 - Notepadqq onnistuneesti asennettu programermasterille
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e07a2a75-1839-4230-936f-3bee6cb872ea)
-- Asennettuna, mutta tulee jotain erroreita (selvitän myöhemmin)
+-![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/50bee738-7c3c-40cf-ab24-b70b5168e3f1)
 - Asennetaan seuraavaksi Postman
 ``` 
 sudo snap install postman
@@ -125,36 +123,34 @@ sudo apt update
 sudo apt install code
 
 ```
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/9356f356-7f39-41de-86a9-8638d9528432)
 - Tässäkin oltaisiin voittaa käyttää snap installeria, joka tuleekin minioneille. 
+- Täytetään init.sls tiedosto seuraavilla komennoilla:
 ```
 vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
 ```
 ```init.sls
+
 install_eclipse:
-  pkg.installed:
-    - name: eclipse
+  cmd.run:
+    - name: sudo snap install --classic eclipse
 
 install_java:
   pkg.installed:
     - name: openjdk-17-jdk
 
 install_postman:
-  pkg.installed:
-    - name: postman
+  cmd.run:
+   - name: sudo snap install postman
 
 install_notepadqq:
   pkg.installed:
     - name: notepadqq
 
-install_postman:
-  pkg.installed:
-    - name: postman
-
 install_vscode:
-  pkg.installed:
-    - name: code
-    - refresh: True
-    
+  cmd.run:
+    - name: sudo snap install --classic code
+
 configure_eclipse:
   file.managed:
     - name: /etc/eclipse.ini
@@ -185,6 +181,13 @@ sudo cp /snap/eclipse/66/eclipse.ini /srv/salt/programmerenvironment/
 sudo chmod +x init.sls
 ```
 ## Part 2 Prepare the minions!
+- Tehdään top.sls tiedosto /srv/salt kansiostoon joka on seuraavalainen:
+```
+base:
+  '*':
+    - programmerenvironment.init
+    - programmerenvironment.testversion
+```
 ```
 sudo salt '*' state.apply saltenv=base 
 top.sls tiedostoon tulee myöhemmin lisää tiedostoja, siksi tämä on erillään ja käytetään state.applyä. 
@@ -201,14 +204,12 @@ sudo salt '*' state.highstate saltenv=base --state-output=terse
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/6f29737e-2862-4a10-a3a6-b82d0d6d6d53)
 - 3 changed eclipse, postman, visualcode koska ne ovat asennettuna cmd-runin kautta, muuten koodi on idempotenttinen.
 - Eclipseä ei voinutkaan ladata pkg.installerilla, eikö myöskään postmania eikä visualcode studiota.
-- Jouduin manuaalisesti luomaan path variablen molemmile koneille:
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/9b588785-1ba4-40d0-88ab-fcda70f4fafa)
 - Java on asennettuna, notepadqq, java environment ja eclipse asetukset..
 - Visual code asennettiin cmd.runin kautta kyseiselle koodilla:
 ```
 sudo snap install --classic code
 ```
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/eb2889a4-fbe3-4b2d-87c0-8b74ad829419)
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0e5215b4-8e01-4d64-8e42-6ff13f869b6c)
 - Post man to go! Eclipsekin on asennettu onnistuneesti.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/862916c9-a4a7-42e9-aa79-23797e9efbc7)
 - Katsotaan mikä java-version on asennettuna programmer1 ja programmer2 koneille.
@@ -258,16 +259,25 @@ java HelloSalt
 ```
 - koodi toimii!
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/f698c4aa-e005-488a-ab1e-000871d75747)
-- ajetaan koodi vielä lopuksi salt minioneilla!
-- lisätään komento init.sls tiedostoon ja katsotaan mitä käy!
+- Lisätään init.sls tiedostoon seuraavat komennot:
 ```
-run_hello_salt:
+copy_hello_salt:
+  file.managed:
+    - name: /usr/local/bin/HelloSalt.class
+    - source: salt://programmerenvironment/HelloSalt.class
+    - mode: "0755"
+
+example_hello_salt:
   cmd.run:
-    - name: java -cp /srv/salt/programmerenvironment HelloSalt
-    - cwd: /
-    - runas: vagrant
+    - name: java -cp /usr/local/bin HelloSalt
 ```
-- ongelmia vielä koodin kanssa testaillaan myöhemmin.
+- ajetaan koodi vielä lopuksi salt minioneilla!
+- Koodi toimii!
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/42add9c0-1efd-44a3-8fa2-d3d1de8fc686)
+- katsotaan vielä kaikki komennot tersellä.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a76d6b21-227b-4933-8406-6db8be42b4c5)
+- changed (5) on kaikki cmd komentoja. 
+- kaikki toiminnassa.
 - loppukuva virtuaalimasiinasta
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/770e74a5-6590-4c69-bd56-1e853d5945a3)
 - Tässä tältä kertaa!

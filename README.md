@@ -209,7 +209,8 @@ top.sls "base": on erikseen, koska ajamme myöhemmin kahta eri tiedostoa.
 - Run time oli tässä aika pitkä, minun netilläni lataus kesti noin 15-20 minuutia. 
 - ajetaan koodi uudestaan tersellä, eli saadaan vastaus paljon pienemmällä tuloksella.
 ```
-sudo salt '*' state.highstate saltenv=base --state-output=terse
+sudo salt '*' state.apply saltenv=base --state-output=terse
+
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/6f29737e-2862-4a10-a3a6-b82d0d6d6d53)
 - 3 changed eclipse, postman, visualcode koska ne ovat asennettuna cmd-runin kautta, muuten koodi on idempotenttinen.

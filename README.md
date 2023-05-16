@@ -217,11 +217,11 @@ sudo salt '*' state.apply saltenv=base --state-output=terse
 ```
 - 
 - Koodi on nyt idempotenttinen.
-- Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia ja koska snap.install ei myöskään toiminut.
+- Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia joissakin tilanteissa.
 - Java on asennettuna, notepadqt ja eclipse asetukset..
 
-## part 3 esimerkki java ja helloSalt
-- Esimerkkejä, että java on asennettuna ja java hello world toimii. 
+## part 3 esimerkki java helloSalt
+- Esimerkkinä on se, että java hello world toimii. 
 - Eclipsen versiota ei voida näyttää eclipse --version komennolla, eikä myöskään postman tai notepadqq toimi koska tämä komento avaa itse sovellukset, joten esimerkki testinä on Javan verio ja testikoodi. 
 - Esimerkki testit:
 ```  

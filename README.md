@@ -151,6 +151,7 @@ vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
 install_eclipse:
   cmd.run:
     - name: sudo snap install --classic eclipse
+    - unless: snap list eclipse
 
 install_java:
   pkg.installed:
@@ -158,7 +159,8 @@ install_java:
 
 install_postman:
   cmd.run:
-   - name: sudo snap install postman
+    - name: sudo snap install postman
+    - unless: snap list postman
 
 install_notepadqq:
   pkg.installed:
@@ -167,6 +169,7 @@ install_notepadqq:
 install_vscode:
   cmd.run:
     - name: sudo snap install --classic code
+    - unless: snap list code
 
 configure_eclipse:
   file.managed:
@@ -174,6 +177,7 @@ configure_eclipse:
     - source: salt://programmerenvironment/eclipse.ini
 
 ```
+- cmd.run komennoista on tehty IDEMPOTENTTISIA, unlessin avulla "unless tiedosto löytyy niin tiedostosta tulee idempotenttinen.
 - Seuraavaksi etsitään meidän eclipse.ini tiedosto. 
 - Eclipsemme sijaitsee kansiossa, **/var/snap/eclipse/current/** otamme tästä kansiosta eclipse.ini tieodoston ja kopiomme sen programmerenvironment salt tiedostoon.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/5f51a966-da37-47e8-b2f5-23dd5b73cdf6)

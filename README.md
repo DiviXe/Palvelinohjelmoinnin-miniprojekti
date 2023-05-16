@@ -262,9 +262,8 @@ java HelloSalt
 sudo salt '*' cmd.run 'java -cp /usr/local/bin HelloSalt'
 ```
 - Koodi toimii!
-- 
-- katsotaan vielä kaikki komennot tersellä.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/b209f779-7165-4f2a-b36a-bb6577544727)
+- katsotaan vielä kaikki komennot tersellä.
 - En saanut cmd.runia java koodin ajamiseen idempotenttiseksi, niin päätin ajaa sen saltin kautta.
 - kaikki toiminnassa.
 - Kaikki koodit ovat idempotenttisia.

@@ -267,6 +267,8 @@ sudo salt '*' cmd.run 'java -cp /usr/local/bin HelloSalt'
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/b209f779-7165-4f2a-b36a-bb6577544727)
 - En saanut cmd.runia java koodin ajamiseen idempotenttiseksi, niin päätin ajaa sen saltin kautta.
 - kaikki toiminnassa.
+- Kaikki koodit ovat idempotenttisia.
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/db24b6c2-ff31-47e7-8f3d-0f0cbb158c03)
 - loppukuva virtuaalimasiinasta
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/770e74a5-6590-4c69-bd56-1e853d5945a3)
 - Tässä tältä kertaa!

@@ -1,5 +1,9 @@
-# Palvelinohjelmoinnin-miniprojekti Ohjelmisto ympäristö kuntoon ubuntu koneille 
+# Palvelinohjelmoinnin-miniprojekti Ohjelmisto ympäristö kuntoon ubuntu 20.04 koneille 
 - Miniprojektissa tullaan käyttämään kolmea Ubuntu 20.04 konetta, ja yksi näistä toimii Masterina ja loput orjina.
+- Miksi ihmeessä ubuntu versio 20.04? 
+- vapaa ja pitkäaikainen tuki
+- laaja yhteensopivuus
+- ubuntu 20.04 on vieläkin todella suosittu, koska tälle kyseiselle versiolle löytää paljon tietoa salt configuraatioista.
 
 # Mikä dilemma?!
 - Ohjelmoijilla on pulaa saada ohjelmointi ympäristö sadalle koneelle (tässä vaiheessa ympäristö toteutetaan vain kahdelle koneelle programmer1 ja programmer2) 
@@ -32,11 +36,11 @@
 
 ## Part 1: Back to the start luodaan kehitysympäristö
 - Ensin luodaan vagrantfile, joka tekee meille kyseiset ubuntu 20.04 koneet.
-- Mennään Hosti Windows koneella powershellillä hakemistoon 
+- Mennään Hosti Windows koneella powershellillä hakemistoon.
  ```
 C:\Users\vagrant\saltdemo
  ```
- - Kopioidaan kyseinen vagrantfile tiedoston sisälle.
+- Kopioidaan kyseinen vagrantfile tiedoston sisälle.
 - Aloitetaan virtuaalikonedein boottaus komennolla **vagrant up**
 - Ensimmäinen Error vagrant filen kanssa
 ```
@@ -68,13 +72,13 @@ vagrant ssh programmerhost
 ```
 - Yhdistäminen onnistunui, katsotaan samalla avaimet ja pingataan koneita, jotta tiedämme, että ne ovat oikeasti "hengissä"
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a02d1e4c-db1e-4f25-be2e-66a71c977c8c)
-- Kaikki näyttä hyvältä, eikun eteenpäin!
+- Kaikki näyttää hyvältä, eikun eteenpäin!
 
 ## Part 2: downloading.. Ensin käsin, sitten automaattisesti.
 - Aloitetaan luomalla saltiin kansiosto, johon laitamme scriptejä.
 - Ensin kuitenkin tehdään koodit käsin, sitten laitamme ne minioneille myöhemmin kuin asennukset mastereille toimii.
-- Käytetään tässä pkg.installia ja cmd.runia. 
-- luodaan kansio programmerenvironment /srv/salt kansiostoon
+- Käytetään tässä pkg.installia, snap.installed ja cmd.runia 
+- luodaan kansio programmerenvironment /srv/salt kansiostoon, joka on valmiiksi luotuna vagrantfilessä.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e21edaa9-43d2-47ae-a625-e54adbc944e6)
 - luodaan kansiostoon init.sls tiedosto
 - Jätämme init.sls tiedoston nyt tähän ja lähdemme itse asentamaan ohjelmia ensin master koneelle ja tätä mukaan varmistamme, että ohjelmat on asennettu oikein.
@@ -94,6 +98,10 @@ sudo add-apt-repository ppa:notepadqq-team/notepadqq
 sudo apt-get update
 sudo apt-get install notepadqq
 tässä oltaisiin voitu käyttää myös sudo snap install notepadqq. 
+``` 
+- TAI
+``` 
+sudo snap install notepadqq
 ``` 
 - Notepadqq onnistuneesti asennettu programermasterille
 -![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/50bee738-7c3c-40cf-ab24-b70b5168e3f1)
@@ -122,6 +130,10 @@ Tehdään päivitys ja ladataan koodi.
 sudo apt update
 sudo apt install code
 
+```
+- Tai
+```
+ sudo snap install --code
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/9356f356-7f39-41de-86a9-8638d9528432)
 - Tässäkin oltaisiin voittaa käyttää snap installeria, joka tuleekin minioneille. 
@@ -167,18 +179,12 @@ sudo cp /snap/eclipse/66/eclipse.ini /srv/salt/programmerenvironment/
 
 ```
 -Lisäämme tämän, jos koneella olisi eclipsen sisäisiä ajatuksia niin eclipse.ini tiedosto toisi asetukset minion koneille.
-- Kansiossa sijaitsee nyt eclipse.ini ja environment tiedosto.
+- Kansiossa sijaitsee nyt eclipse.ini ja init.sls tiedosto.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/74bfcf50-5a5e-430e-a316-d7aab5981f03)
-- Ladataan visulcode ubuntulle Visual studio Ubuntu ohjeiden mukaan.
-```
- sudo snap install --code
-```
-- Koodi toimi!
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a5f9f948-b522-44a4-936e-a04d5694e6ad)
-- 
 - annetaan meidän /srv/salt/programer environment init tiedostolle nyt oikeudet.
 ```
 sudo chmod +x init.sls
+# muutetaan käyttöoikeuksia komennolla "chmod" ja +x tarkoittaa, että tiedostolla on ajo-oikeus.
 ```
 ## Part 2 Prepare the minions!
 - Tehdään top.sls tiedosto /srv/salt kansiostoon joka on seuraavalainen:
@@ -186,38 +192,29 @@ sudo chmod +x init.sls
 base:
   '*':
     - programmerenvironment.init
-    - programmerenvironment.testversion
 ```
+- Tämä ajaa molemmat koodit järjestyksessä käyttämällä state.applya
 ```
 sudo salt '*' state.apply saltenv=base 
-top.sls tiedostoon tulee myöhemmin lisää tiedostoja, siksi tämä on erillään ja käytetään state.applyä. 
+top.sls "base": on erikseen, koska ajamme myöhemmin kahta eri tiedostoa.
 ```
 - Ongelmien ratkaisujen jälkeen koodi raksuttaa nyt minioneilla ja katsotaan mitä käy..
 - Kaikki lataukset on nyt onnistuneesti latautunut. 
 - Tässä on lopputulokset:
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/86329894-1851-4f9b-9b73-ae5b5d2dbe46)
-- Run time oli tässä aika pitkä.. jopa 600 sekuntia eli 10 minuuttia. 
+- Run time oli tässä aika pitkä, minun netilläni lataus kesti noin 15-20 minuutia. 
 - ajetaan koodi uudestaan tersellä, eli saadaan vastaus paljon pienemmällä tuloksella.
 ```
 sudo salt '*' state.highstate saltenv=base --state-output=terse
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/6f29737e-2862-4a10-a3a6-b82d0d6d6d53)
 - 3 changed eclipse, postman, visualcode koska ne ovat asennettuna cmd-runin kautta, muuten koodi on idempotenttinen.
-- Eclipseä ei voinutkaan ladata pkg.installerilla, eikö myöskään postmania eikä visualcode studiota.
-- Java on asennettuna, notepadqq, java environment ja eclipse asetukset..
-- Visual code asennettiin cmd.runin kautta kyseiselle koodilla:
-```
-sudo snap install --classic code
-```
+- Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia.
+- Java on asennettuna, notepadqq,t ja eclipse asetukset..
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0e5215b4-8e01-4d64-8e42-6ff13f869b6c)
 - Post man to go! Eclipsekin on asennettu onnistuneesti.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/862916c9-a4a7-42e9-aa79-23797e9efbc7)
 - Katsotaan mikä java-version on asennettuna programmer1 ja programmer2 koneille.
-```
-- sudo salt '*' cmd.run 'java --version'
-```
-- java 17 se siellä! 
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/23d67fd4-983e-472f-9840-1743b99e534c)
 
 ## part 3 esimerkkien antaminen
 - Esimerkkejä, että java on asennettuna ja java hello world toimii. 

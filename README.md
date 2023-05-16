@@ -77,10 +77,14 @@ vagrant ssh programmerhost
 ## Part 2: downloading.. Ensin käsin, sitten automaattisesti.
 - Aloitetaan luomalla saltiin kansiosto, johon laitamme scriptejä.
 - Ensin kuitenkin tehdään koodit käsin, sitten laitamme ne minioneille myöhemmin kuin asennukset mastereille toimii.
-- Käytetään tässä pkg.installia, snap.installed ja cmd.runia 
+- Käytetään tässä pkg.installia ja cmd.runia
+- HUOM. yritin käyttää snap.installedia init.sls tiedostossa, mutta se ei toiminut. Yritin myös asentaa saltiin kyseisen paketin, mutta ei toiminut. Ajan takia en kerinnyt lähteä selvittämään asiaa.
 - luodaan kansio programmerenvironment /srv/salt kansiostoon, joka on valmiiksi luotuna vagrantfilessä.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/e21edaa9-43d2-47ae-a625-e54adbc944e6)
 - luodaan kansiostoon init.sls tiedosto
+```
+sudo nano init.sls
+```
 - Jätämme init.sls tiedoston nyt tähän ja lähdemme itse asentamaan ohjelmia ensin master koneelle ja tätä mukaan varmistamme, että ohjelmat on asennettu oikein.
 - Asennamme master koneelle ensiksi Javan, Eclipsen, notepadqq, Postmanin ja Visualcode studion.
 - -Ensiksi ladataan opendjk-17-jdk koneelle sudo apt installerilla. 
@@ -209,16 +213,14 @@ sudo salt '*' state.highstate saltenv=base --state-output=terse
 ```
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/6f29737e-2862-4a10-a3a6-b82d0d6d6d53)
 - 3 changed eclipse, postman, visualcode koska ne ovat asennettuna cmd-runin kautta, muuten koodi on idempotenttinen.
-- Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia.
-- Java on asennettuna, notepadqq,t ja eclipse asetukset..
+- Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia ja koska snap.install ei myöskään toiminut.
+- Java on asennettuna, notepadqt ja eclipse asetukset..
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0e5215b4-8e01-4d64-8e42-6ff13f869b6c)
-- Post man to go! Eclipsekin on asennettu onnistuneesti.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/862916c9-a4a7-42e9-aa79-23797e9efbc7)
-- Katsotaan mikä java-version on asennettuna programmer1 ja programmer2 koneille.
 
-## part 3 esimerkkien antaminen
+## part 3 esimerkki java ja helloSalt
 - Esimerkkejä, että java on asennettuna ja java hello world toimii. 
-- Eclipsen versiota ei voida näyttää eclipse --version komennolla, eikä myöskään postman tai notepadqq toimi.
+- Eclipsen versiota ei voida näyttää eclipse --version komennolla, eikä myöskään postman tai notepadqq toimi koska tämä komento avaa itse sovellukset, joten esimerkki testinä on Javan verio ja testikoodi. 
 - Esimerkki testit:
 ```  
 java_example:
@@ -249,9 +251,10 @@ public class HelloSalt {
 - annetaan koodille myös oikeudet!
 ```
 sudo chmod o+w HelloSalt.java
-//compiling code:
+# o+w tarkoittaa other(users) käyttäjät + write permit eli kirjoitus oikeus.
+# compiling code:
  javac HelloSalt.java
-// testing code:
+# testing code:
 java HelloSalt
 ```
 - koodi toimii!
@@ -263,6 +266,10 @@ copy_hello_salt:
     - name: /usr/local/bin/HelloSalt.class
     - source: salt://programmerenvironment/HelloSalt.class
     - mode: "0755"
+    # mode "0755" tarkoittaa = 
+    # Omistajalla on lukuoikeus, kirjoitusoikeus ja suoritusoikeus. (7)
+    # Ryhmällä on lukuoikeus ja suoritusoikeus. (5)
+    # Muilla on lukuoikeus ja suoritusoikeus. (5)
 
 example_hello_salt:
   cmd.run:

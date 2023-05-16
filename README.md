@@ -202,20 +202,14 @@ base:
 ```
 - Tämä ajaa molemmat koodit järjestyksessä käyttämällä state.applya
 ```
-sudo salt '*' state.apply saltenv=base 
+sudo salt '*' state.apply saltenv=base --state-output=terse
 top.sls "base": on erikseen, koska ajamme myöhemmin kahta eri tiedostoa.
 ```
 - Ongelmien ratkaisujen jälkeen koodi raksuttaa nyt minioneilla ja katsotaan mitä käy..
 - Kaikki lataukset on nyt onnistuneesti latautunut. 
 - Tässä on lopputulokset:
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a4128def-7b77-4ddf-8d5b-6a97eb8e43c6)
-- Run time oli tässä aika pitkä, minun netilläni lataus kesti noin 15-20 minuutia. 
-- ajetaan koodi uudestaan tersellä, eli saadaan vastaus paljon pienemmällä tuloksella.
-```
-sudo salt '*' state.apply saltenv=base --state-output=terse
-
-```
-- 
+- Run time oli tässä aika pitkä, minun netilläni lataus kesti noin 15-20 minuutia.
 - Koodi on nyt idempotenttinen.
 - Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia joissakin tilanteissa.
 - Java on asennettuna, notepadqt ja eclipse asetukset..
@@ -223,11 +217,13 @@ sudo salt '*' state.apply saltenv=base --state-output=terse
 ## part 3 esimerkki java helloSalt
 - Esimerkkinä on se, että java hello world toimii. 
 - Eclipsen versiota ei voida näyttää eclipse --version komennolla, eikä myöskään postman tai notepadqq toimi koska tämä komento avaa itse sovellukset, joten esimerkki testinä on Javan verio ja testikoodi. 
-- Esimerkki testit:
+- Esimerkki testi:
 ```  
-java_example:
-  cmd.run:
-    - name: java --version
+copy_hello_salt:
+  file.managed:
+    - name: /usr/local/bin/HelloSalt.class
+    - source: salt://programmerenvironment/HelloSalt.class
+    - mode: "0755"
 ```
 - Tehdään testversion.sls tiedosto, joka ajaa versiot läpi kansiostoon /srv/salt/programmerenvironment ja annetaan tiedostolle kyseiset oikeudet:
 ```
@@ -261,28 +257,15 @@ java HelloSalt
 ```
 - koodi toimii!
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/f698c4aa-e005-488a-ab1e-000871d75747)
-- Lisätään init.sls tiedostoon seuraavat komennot:
+- nyt kokeillaan koodia komennolla 
 ```
-copy_hello_salt:
-  file.managed:
-    - name: /usr/local/bin/HelloSalt.class
-    - source: salt://programmerenvironment/HelloSalt.class
-    - mode: "0755"
-    # mode "0755" tarkoittaa = 
-    # Omistajalla on lukuoikeus, kirjoitusoikeus ja suoritusoikeus. (7)
-    # Ryhmällä on lukuoikeus ja suoritusoikeus. (5)
-    # Muilla on lukuoikeus ja suoritusoikeus. (5)
-
-example_hello_salt:
-  cmd.run:
-    - name: java -cp /usr/local/bin HelloSalt
+sudo salt '*' cmd.run 'java -cp /usr/local/bin HelloSalt'
 ```
-- ajetaan koodi vielä lopuksi salt minioneilla!
 - Koodi toimii!
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/42add9c0-1efd-44a3-8fa2-d3d1de8fc686)
+- 
 - katsotaan vielä kaikki komennot tersellä.
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a76d6b21-227b-4933-8406-6db8be42b4c5)
-- changed (5) on kaikki cmd komentoja. 
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/b209f779-7165-4f2a-b36a-bb6577544727)
+- En saanut cmd.runia java koodin ajamiseen idempotenttiseksi, niin päätin ajaa sen saltin kautta.
 - kaikki toiminnassa.
 - loppukuva virtuaalimasiinasta
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/770e74a5-6590-4c69-bd56-1e853d5945a3)

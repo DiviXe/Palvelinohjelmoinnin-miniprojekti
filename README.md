@@ -12,12 +12,6 @@
 - Tässä on kuva master koneesta ja sen ohjelmista.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/20d14ba5-cd25-4665-aae6-e5b87a120dea)
 
-# Host kone ympäristö
-- GPU: Rtx 3070 TI
-- CPU: i7-9700k 
-- RAM: 32GB
-- OS: Windows 10 Pro 
-
 # Virtuaalikoneet Programmer1 ja Programmer2
 - Virtuaalikoneiden luomiseen käytössä Oracle VM VirtualBox
 - käytössä KAKSI corea per kone
@@ -33,6 +27,13 @@
 - 2GB ramia
 - 128GB HDD (käytössä noin 5-7gb asennusten jälkeen)
 - OS: Ubuntu 20.04
+
+# Host kone ympäristö
+- GPU: Rtx 3070 TI
+- CPU: i7-9700k 
+- RAM: 32GB
+- OS: Windows 10 Pro 
+
 
 ## Part 1: Back to the start luodaan kehitysympäristö
 - Ensin luodaan vagrantfile, joka tekee meille kyseiset ubuntu 20.04 koneet.

@@ -1,6 +1,7 @@
 install_eclipse:
   cmd.run:
     - name: sudo snap install --classic eclipse
+    - unless: snap list eclipse
 
 install_java:
   pkg.installed:
@@ -8,7 +9,8 @@ install_java:
 
 install_postman:
   cmd.run:
-   - name: sudo snap install postman
+    - name: sudo snap install postman
+    - unless: snap list postman
 
 install_notepadqq:
   pkg.installed:
@@ -17,6 +19,7 @@ install_notepadqq:
 install_vscode:
   cmd.run:
     - name: sudo snap install --classic code
+    - unless: snap list code
 
 configure_eclipse:
   file.managed:
@@ -32,3 +35,4 @@ copy_hello_salt:
 example_hello_salt:
   cmd.run:
     - name: java -cp /usr/local/bin HelloSalt
+    - onlyif: test -f /usr/local/bin/HelloSalt.class

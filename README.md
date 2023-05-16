@@ -147,7 +147,6 @@ sudo apt install code
 vagrant@programmerhost:/srv/salt/programmerenvironment$ sudo nano init.sls
 ```
 ```init.sls
-
 install_eclipse:
   cmd.run:
     - name: sudo snap install --classic eclipse
@@ -178,7 +177,6 @@ configure_eclipse:
 
 ```
 - cmd.run komennoista on tehty IDEMPOTENTTISIA, unlessin avulla "unless tiedosto löytyy niin tiedostosta tulee idempotenttinen.
-- Seuraavaksi etsitään meidän eclipse.ini tiedosto. 
 - Eclipsemme sijaitsee kansiossa, **/var/snap/eclipse/current/** otamme tästä kansiosta eclipse.ini tieodoston ja kopiomme sen programmerenvironment salt tiedostoon.
 - ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/5f51a966-da37-47e8-b2f5-23dd5b73cdf6)
 - Eclipsen inin etsiminen olikin vähän vaikeampaa kuin ajattelinkin, se olikin kansiossa /snap/eclipse/66/eclipse.ini
@@ -210,19 +208,17 @@ top.sls "base": on erikseen, koska ajamme myöhemmin kahta eri tiedostoa.
 - Ongelmien ratkaisujen jälkeen koodi raksuttaa nyt minioneilla ja katsotaan mitä käy..
 - Kaikki lataukset on nyt onnistuneesti latautunut. 
 - Tässä on lopputulokset:
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/86329894-1851-4f9b-9b73-ae5b5d2dbe46)
+- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/a4128def-7b77-4ddf-8d5b-6a97eb8e43c6)
 - Run time oli tässä aika pitkä, minun netilläni lataus kesti noin 15-20 minuutia. 
 - ajetaan koodi uudestaan tersellä, eli saadaan vastaus paljon pienemmällä tuloksella.
 ```
 sudo salt '*' state.apply saltenv=base --state-output=terse
 
 ```
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/6f29737e-2862-4a10-a3a6-b82d0d6d6d53)
-- 3 changed eclipse, postman, visualcode koska ne ovat asennettuna cmd-runin kautta, muuten koodi on idempotenttinen.
+- 
+- Koodi on nyt idempotenttinen.
 - Eclipseä ei pystynyt lataamaan pkg.installerilla, eikö myöskään postmania eikä visualcode studiota, tämän takia käytäämme "ghetto" tyylillä cmd.runia ja koska snap.install ei myöskään toiminut.
 - Java on asennettuna, notepadqt ja eclipse asetukset..
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/0e5215b4-8e01-4d64-8e42-6ff13f869b6c)
-- ![image](https://github.com/DiviXe/Palvelinohjelmoinnin-miniprojekti/assets/105793201/862916c9-a4a7-42e9-aa79-23797e9efbc7)
 
 ## part 3 esimerkki java ja helloSalt
 - Esimerkkejä, että java on asennettuna ja java hello world toimii. 

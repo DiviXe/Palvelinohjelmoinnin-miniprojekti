@@ -25,14 +25,3 @@ configure_eclipse:
   file.managed:
     - name: /etc/eclipse.ini
     - source: salt://programmerenvironment/eclipse.ini
-
-copy_hello_salt:
-  file.managed:
-    - name: /usr/local/bin/HelloSalt.class
-    - source: salt://programmerenvironment/HelloSalt.class
-    - mode: "0755"
-
-example_hello_salt:
-  cmd.run:
-    - name: java -cp /usr/local/bin HelloSalt
-    - onlyif: test -f /usr/local/bin/HelloSalt.class
